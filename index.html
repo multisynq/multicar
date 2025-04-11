@@ -220,14 +220,16 @@ class SharedSimulation extends Croquet.Model {
     createMountains(count) {
         const mountains = [];
         for (let i = 0; i < count; i++) {
-            // We use the shared random number generator to ensure that all clients
-            // get the same sequence of random numbers. It's automatically seeded
-            // with the session ID, so different sessions will get different sequences.
-            const height = this.random() * 30 + 10;
-            const radius = this.random() * 10 + 5;
+            // Croquet patches Math.random() to ensure that if it is called from
+            // model code, all clients in that session get the same sequence of
+            // random numbers. It's automatically seeded with the session ID, so
+            // different sessions will get different sequences. This makes it
+            // safe to use Math.random() in model code.
+            const height = Math.random() * 30 + 10;
+            const radius = Math.random() * 10 + 5;
             const position = {
-                x: (this.random() - 0.5) * 180, // Spread them out
-                z: (this.random() - 0.5) * 180,
+                x: (Math.random() - 0.5) * 180, // Spread them out
+                z: (Math.random() - 0.5) * 180,
                 y: height / 2, // Base on the ground plane
             };
             // Ensure mountains are far from the central road area
@@ -241,9 +243,9 @@ class SharedSimulation extends Croquet.Model {
     createTrees(count) {
         const trees = [];
         for (let i = 0; i < count; i++) {
-            const trunkHeight = this.random() * 3 + 1;
+            const trunkHeight = Math.random() * 3 + 1;
             const trunkRadius = trunkHeight * 0.1;
-            const leavesHeight = this.random() * 4 + 2;
+            const leavesHeight = Math.random() * 4 + 2;
             const leavesRadius = leavesHeight * 0.4;
             // Position the tree randomly, avoiding the road
             const tree = {
@@ -256,8 +258,8 @@ class SharedSimulation extends Croquet.Model {
                     radius: leavesRadius,
                 },
                 position: {
-                    x: (this.random() - 0.5) * 150,
-                    z: (this.random() - 0.5) * 150,
+                    x: (Math.random() - 0.5) * 150,
+                    z: (Math.random() - 0.5) * 150,
                     y: 0,
                 },
             };
@@ -274,23 +276,23 @@ class SharedSimulation extends Croquet.Model {
     createClouds(count) {
         const clouds = [];
         for (let i = 0; i < count; i++) {
-            const numSpheres = Math.floor(this.random() * 5) + 3; // 3 to 7 spheres per cloud
+            const numSpheres = Math.floor(Math.random() * 5) + 3; // 3 to 7 spheres per cloud
             const spheres = [];
             for (let j = 0; j < numSpheres; j++) {
-                const radius = this.random() * 5 + 2;
+                const radius = Math.random() * 5 + 2;
                 // Offset spheres slightly to form cloud shape
                 const position = {
-                    x: (this.random() - 0.5) * 10,
-                    z: (this.random() - 0.5) * 5,
-                    y: (this.random() - 0.5) * 3,
+                    x: (Math.random() - 0.5) * 10,
+                    z: (Math.random() - 0.5) * 5,
+                    y: (Math.random() - 0.5) * 3,
                 };
                 spheres.push({ radius, position });
             }
             // Position the cloud group high up and spread out
             const position = {
-                x: (this.random() - 0.5) * 180,
-                z: (this.random() - 0.5) * 180,
-                y: this.random() * 20 + 30, // Height range
+                x: (Math.random() - 0.5) * 180,
+                z: (Math.random() - 0.5) * 180,
+                y: Math.random() * 20 + 30, // Height range
             };
             clouds.push({ spheres, position });
         }
@@ -308,12 +310,12 @@ class SimCar extends Croquet.Model {
         // this is in addition to the `id` property every model already has
         this.viewId = viewId;
         // each car has a random color
-        this.color = `hsl(${this.random() * 360}, 100%, 50%)`;
+        this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
         // each car has a slightly random position so they don't all
         // spawn in the exact same place
         this.pos = {
-            x: this.random() * 4 - 2,
-            z: this.random() * 4 - 2,
+            x: Math.random() * 4 - 2,
+            z: Math.random() * 4 - 2,
             y: 0.2,
         };
         // all cars facing forward
