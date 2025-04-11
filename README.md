@@ -13,3 +13,12 @@ Multisynq keeps these Croquet VMs in sync by providing a global decentralized ne
 Each session is end-to-end encrypted by a random session name and password. These are automatically added to the URL. Another player can join either by copy-pasting that URL, or by scanning the QR code in the top-right.
 
 Croquet 2.0 is open-source, you can find it on [npm](https://www.npmjs.com/package/@croquet/croquet) and [GitHub](https://github.com/croquet/croquet). Note that only [version 2](https://www.npmjs.com/package/@croquet/croquet?activeTab=versions) is compatible with Multisynq.
+
+## How to run
+To try this game, simply double-clicking the HTML file to open it in a web browser should work.
+
+To deploy it, change the API key to your own (from multisynq.io/coder) and upload the HTML file to any web server (for example, GitHub Pages).
+
+## How to use with AI
+
+Give the HTML file to the AI as context, and tell it to build a multiplayer game based on this example.
