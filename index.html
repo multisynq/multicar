@@ -168,7 +168,7 @@ class SharedSimulation extends Croquet.Model {
     // this is called when a new player joins the session
     onViewJoin(viewId) {
         // create a new car model for the player
-        const car = SimCar.create(viewId);
+        const car = SimCar.create({viewId}); // create can only take a single argument
         // store the car model in a map so we can look it up by the player's view ID
         this.cars.set(viewId, car);
         // Inform the view that a new car has been added
@@ -306,7 +306,7 @@ SharedSimulation.register("SharedSimulation");
 class SimCar extends Croquet.Model {
     // each player's view has a viewId property, which we use to identify
     // the player controlling the car
-    init(viewId) {
+    init({viewId}) {
         // log car creation in the console, mark it with the simulation time
         console.log(`${this.now()}: SimCar ${this.id} created for viewId ${viewId}`);
 
