@@ -325,8 +325,8 @@ class SimCar extends Croquet.Model {
             left: false,
             right: false
         };
-        // Subscribe to control events only from "our" player
-        this.subscribe(viewId, "control", this.onControl);
+        // Every model has a built-in id, which "our" player will use as scope to send events
+        this.subscribe(this.id, "control", this.onControl);
     }
 
     // this event is published when the player presses a button
@@ -477,6 +477,8 @@ class SimInterface extends Croquet.View {
         }
 
         // get the car we control based on our viewId
+        // this.mySimCar.id is different from this.viewId
+        // it is used as scope for publishing events to that model
         this.mySimCar = sim.cars.get(this.viewId);
 
         // When a new player's car is added, we add a new 3D object to our scene
@@ -774,7 +776,8 @@ const myControls = {
         this[control] = value;
         const { view } = ThisSession;
         if (view) {
-            view.publish(view.viewId, "control", { control, value });
+            const myCarId = view.mySimCar.id;
+            view.publish(myCarId, "control", { control, value });
         }
     }
 };
