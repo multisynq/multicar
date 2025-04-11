@@ -183,7 +183,7 @@ class SharedSimulation extends Croquet.Model {
         const car = this.cars.get(viewId);
         // remove the car model from the map
         this.cars.delete(viewId);
-        // destroy the car model
+        // unregister the car model
         car.destroy();
         // Inform the view that a car has been removed
         // Again, this is not strictly necessary, but more efficient than
@@ -307,6 +307,9 @@ class SimCar extends Croquet.Model {
     // each player's view has a viewId property, which we use to identify
     // the player controlling the car
     init(viewId) {
+        // log car creation in the console, mark it with the simulation time
+        console.log(`${this.now()}: SimCar ${this.id} created for viewId ${viewId}`);
+
         // this is in addition to the `id` property every model already has
         this.viewId = viewId;
         // each car has a random color
@@ -372,6 +375,17 @@ class SimCar extends Croquet.Model {
                 // or show a visual effect
             }
         }
+    }
+
+    destroy() {
+        // we only intercept destroy() for logging purposes
+
+        // log car destruction in the console, mark it with the simulation time
+        console.log(`${this.now()}: SimCar ${this.id} destroyed`);
+
+        // this unregisters the model, unsubscribes it from all events, and
+        // cancels all its future messages (if any)
+        super.destroy();
     }
 
     // we could also use Three.js math here, but would have to define the
