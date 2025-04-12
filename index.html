@@ -511,9 +511,12 @@ class SimInterface extends Croquet.View {
     }
 
     // this is called when the session is interrupted
+    // we need to manually release all resources this class created
+    // (e.g. the renderer, unsubscribe from DOM events, etc.)
+    // because on reconnect, the whole view will be recreated
     detach() {
         this.renderer.dispose();
-        super.detach();
+        super.detach(); // this will unsubscribe from all Croquet events
     }
 
     // this is called both in the constructor and when a new player's car is added
