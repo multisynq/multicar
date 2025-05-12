@@ -892,6 +892,10 @@ const ThisSession = await Multisynq.Session.join({
         color: myColor,
         // we could pass a player name here etc.
     },
+    // normally, a random session is created and the URL + QR code reflects that
+    // uncomment the following two lines to force a specific named session without changing the URL
+    // name: "my-session-name",             // e.g. "public"
+    // password: "my-session-password",     // e.g. "none"
 });
 
 // start listening for user input
