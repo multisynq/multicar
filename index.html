@@ -55,7 +55,7 @@ body {
   }
 }
 
-/* move QR code to top-right (it's normally in the bottom-left) */
+/* move the widget dock with QR code to top-right (it's normally in the bottom-left) */
 #croquet_dock {
   top: 10px;
   right: 10px;
@@ -872,7 +872,7 @@ function setupControls() {
 
 // The widget dock shows the QR code for the session
 // URL so other players can join easily
-Multisynq.App.makeWidgetDock();
+Multisynq.App.makeWidgetDock(); // creates a div with id="croquet_dock"
 
 // This is the main entry point for the application
 // it joins the session, resumes the simulation, and attaches the view to it
