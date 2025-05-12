@@ -888,6 +888,8 @@ const ThisSession = await Multisynq.Session.join({
     view: SimInterface,         // the view class
     // viewData is passed as argument to the model's view-join event
     // along with the randomly generated viewId (which cannot be changed)
+    // NOTE: Always pass at least an empty viewData object, otherwise the
+    // view-join event will have a different signature
     viewData: {
         color: myColor,
         // we could pass a player name here etc.
